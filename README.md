@@ -16,6 +16,8 @@
 
 結合 Line notify，將天氣資料推播至用戶的 Line
 
+(static/img/line_notify.jpg)
+
 ## 專案所需指令
 
 `poetry shell`
