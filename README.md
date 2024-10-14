@@ -16,7 +16,7 @@
 
 結合 Line notify，將天氣資料推播至用戶的 Line
 
-(static/img/line_notify.jpg)
+![Line Notify](static/img/line_notify.jpg)
 
 ## 專案所需指令
 
@@ -25,4 +25,5 @@
 新增 .env
 
 取得 line notify 的 token https://notify-bot.line.me/doc/en/，再放置.env
+
 取得 中央氣象局 api 的憑證 https://opendata.cwa.gov.tw/index ，並將憑證放置.env 的 Authorization
