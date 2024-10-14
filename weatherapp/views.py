@@ -1,12 +1,15 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Create your views here.
 def get_data():
   url="https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001"
   params={
-    "Authorization":"CWA-84EE207C-D4D1-46E7-A809-0970F6728AD9",
+    "Authorization":os.getenv("Authorization"),
     "format": "JSON",
     "locationName":"臺北市"
   }
@@ -31,27 +34,28 @@ def get_data():
         comfort = weather_elements[3]["time"][0]["parameter"]["parameterName"]
         max_tem = weather_elements[4]["time"][0]["parameter"]["parameterName"]
 
-        # print("地點："+location)
-        # print("預測開始時間："+start_time)
-        # print("預測結束時間："+end_time)
-        # print("天氣型態："+weather_state)
-        # print("降雨機率："+rain_prob)
-        # print("最低氣溫："+min_tem)
-        # print("氣溫狀態："+comfort)
-        # print("最高氣溫："+max_tem)
+        print("地點："+location)
+        print("預測開始時間："+start_time)
+        print("預測結束時間："+end_time)
+        print("天氣型態："+weather_state)
+        print("降雨機率："+rain_prob)
+        print("最低氣溫："+min_tem)
+        print("氣溫狀態："+comfort)
+        print("最高氣溫："+max_tem)
 
-        line_notify(tuple([location, start_time, end_time,
-                           weather_state, rain_prob, min_tem, comfort, max_tem]))
+        return (location, start_time, end_time, weather_state, rain_prob, min_tem, comfort, max_tem)
+
         print("--------")
 
   else:
         print("Can't get data!")
+        return None
 
 
 def line_notify(data):
 
 
-  token="vw4wkwLx1bBxNtVaqdyGrGnTiwZax5xKfimkPxOMOEd"
+  token=os.getenv("line_notify_token")
   message = ""
 
   if len(data)==0:
@@ -73,7 +77,9 @@ def line_notify(data):
         "message": message
     }
 
-  requests.post(url=line_url, headers=line_header, data=line_data)
+  response=requests.post(url=line_url, headers=line_header, data=line_data)
+  print(f"Status code: {response.status_code}")
+
 
 
 if __name__ == '__main__':
