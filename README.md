@@ -22,8 +22,9 @@
 
 `poetry shell`
 `poetry install`
+
 新增 .env
 
-取得 line notify 的 token https://notify-bot.line.me/doc/en/，再放置.env
-
 取得 中央氣象局 api 的憑證 https://opendata.cwa.gov.tw/index ，並將憑證放置.env 的 Authorization
+
+取得 line notify 的 token https://notify-bot.line.me/doc/en/ ，再將取得的 token 放置.env 的 line_notify_token
