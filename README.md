@@ -1,3 +1,5 @@
+{% load static %}
+
 # Weatherapp
 
 ## 專案介紹
