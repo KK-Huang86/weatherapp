@@ -34,18 +34,18 @@ def get_data():
         comfort = weather_elements[3]["time"][0]["parameter"]["parameterName"]
         max_tem = weather_elements[4]["time"][0]["parameter"]["parameterName"]
 
-        print("地點："+location)
-        print("預測開始時間："+start_time)
-        print("預測結束時間："+end_time)
-        print("天氣型態："+weather_state)
-        print("降雨機率："+rain_prob)
-        print("最低氣溫："+min_tem)
-        print("氣溫狀態："+comfort)
-        print("最高氣溫："+max_tem)
+        # print("地點："+location)
+        # print("預測開始時間："+start_time)
+        # print("預測結束時間："+end_time)
+        # print("天氣型態："+weather_state)
+        # print("降雨機率："+rain_prob)
+        # print("最低氣溫："+min_tem)
+        # print("氣溫狀態："+comfort)
+        # print("最高氣溫："+max_tem)
 
         return (location, start_time, end_time, weather_state, rain_prob, min_tem, comfort, max_tem)
 
-        print("--------")
+     
 
   else:
         print("Can't get data!")
@@ -66,6 +66,17 @@ def line_notify(data):
         message += f"溫度: {data[5]}°C - {data[7]}°C\n"
         message += f"降雨機率: {data[4]}%\n"
         message += f"舒適度: {data[6]}\n"
+    
+        if int(data[4])>70:
+          message+= "提醒您，今天有可能會下雨，出門前記得帶傘\n"
+        elif int(data[7])>32:
+          message += "提醒您，今天天氣炎熱，請記得多補充水分\n"
+        elif int(data[5])<10:
+          message +="提醒您，今天天氣寒冷，請記得多穿一點"
+        elif int(data[7]) - int(data[5]) > 10:
+          message +="提醒您，今天天氣變化大，請多注意保暖"
+
+
         message += f"天氣預估時間: {data[1]} ~ {data[2]}\n"
 
   line_url = "https://notify-api.line.me/api/notify"
@@ -84,4 +95,3 @@ def line_notify(data):
 
 if __name__ == '__main__':
   get_data()
-  line_notify()

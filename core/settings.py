@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from lib.utils.env import is_dev
+
+if is_dev():
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3uc67l59l=nt8%l)k-a2y9#jlnr_(j$ioggo47zbd0$dqz6db7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = is_dev()
+
+
 
 ALLOWED_HOSTS = []
 
@@ -40,6 +49,12 @@ INSTALLED_APPS = [
     'weatherapp',
 ]
 
+if is_dev():
+    INSTALLED_APPS += [
+        "django_extensions",
+        "debug_toolbar",
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'core.urls'
 
